@@ -1,0 +1,104 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro com opacidade */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Certifique-se de que o modal apareça acima de outros elementos */
+}
+
+.modal-content {
+  background-color: #fffbe6; /* Cor suave de página para simular papel */
+  padding: 40px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 700px; /* Tamanho máximo do modal ajustado */
+  max-height: 90vh; /* Garante que o modal não exceda 90% da altura da viewport */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra mais forte para dar profundidade */
+  border: 1px solid #e3dac9; /* Borda para lembrar páginas antigas */
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Textura de papel */
+  background-size: cover;
+  font-family: 'Georgia', serif; /* Estilo de fonte de livro */
+  color: #3e3e3e; /* Cor suave para o texto */
+  line-height: 1.8; /* Melhor espaçamento entre linhas */
+  text-align: justify; /* Justifica o texto para parecer mais com um livro */
+  overflow-y: auto; /* Adiciona uma barra de rolagem se o conteúdo ultrapassar a altura */
+  pointer-events: auto; /* Permite interações no conteúdo do modal */
+}
+
+/* Estilizando os títulos e texto */
+.modal-content h3 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: #5a5a5a;
+}
+
+.modal-content p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+/* Estilo dos botões */
+.modal-content button {
+  background-color: #d4b483;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-family: 'Georgia', serif;
+  border-radius: 4px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content button:hover {
+  background-color: #b39467;
+}
+
+.modal-content button:disabled {
+  background-color: #ccc;
+}
+
+/* Responsividade: ajustando para telas menores */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .modal-content h3 {
+    font-size: 1.4em;
+  }
+
+  .modal-content p {
+    font-size: 1em;
+  }
+}
+
+/* Estilo para a mensagem de instrução */
+.instruction-message {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #e3dac9;
+  border-radius: 8px;
+  font-family: 'Georgia', serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  font-size: 1.1em;
+  z-index: 1100;
+  animation: fadeOut 5s forwards; /* Faz a mensagem desaparecer após 5s */
+}
+
+/* Animação para desaparecer gradualmente */
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; display: none; }
+}

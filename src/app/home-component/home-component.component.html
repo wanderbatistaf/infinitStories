@@ -1,0 +1,163 @@
+<div class="book-store">
+  <div class="header">
+    <div class="browse">
+      <div class="browse-category" style="cursor: not-allowed">
+        Categorias
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+          <path d="M6 9l6 6 6-6" /></svg>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar Livros" [(ngModel)]="searchQuery" (input)="searchBooks()"/>
+      </div>
+    </div>
+    <div class="header-title">Infinity<span> Storys</span></div>
+    <div class="profile">
+      <div class="user-profile" (click)="goToLogin()">
+<!--        <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="" class="user-img">-->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#505050" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z"/></svg>
+      </div>
+      <div class="profile-menu" style="cursor: not-allowed">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+          <path d="M3 12h18M3 6h18M3 18h18" /></svg>
+        Menu
+      </div>
+    </div>
+  </div>
+  <div class="book-slide">
+    <div class="book-carousel">
+
+      <div class="carousel-controls">
+        <!-- Botão Anterior -->
+        <button class="flickity-prev-next-button previous"
+                (click)="goToPrevious()"
+                [disabled]="currentIndex === 0">
+          <svg class="arrow" viewBox="0 0 100 100">
+            <path d="M 60,10 L 20,50 L 60,90" stroke="white" stroke-width="10" fill="none" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <!-- Botão Próximo -->
+        <button class="flickity-prev-next-button next"
+                (click)="goToNext()"
+                [disabled]="currentIndex + booksPerPage >= books.length">
+          <svg class="arrow" viewBox="0 0 100 100">
+            <path d="M 40,10 L 80,50 L 40,90" stroke="white" stroke-width="10" fill="none" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="book-cell" *ngFor="let book of books; let i = index" [ngStyle]="{'transform': 'translateX(' + (-currentIndex * 100) + '%)'}">
+        <div class="book-img">
+          <img
+            [src]="mainUrl + '/_books/' + book.title + '/' + book.title + '_cover.png'"
+            alt="{{ book.title }} Cover"
+            class="book-photo"/>
+        </div>
+        <div class="book-content">
+          <div class="book-title">{{ formatTitle(book.title) }}</div>
+          <div class="book-author">by Infinity Stories</div>
+          <div class="rate">
+            <fieldset class="rating dark-purp">
+              <input type="checkbox" id="star21" name="rating" value="5" />
+              <label class="full" for="star21"></label>
+              <input type="checkbox" id="star22" name="rating" value="4" />
+              <label class="full" for="star22"></label>
+              <input type="checkbox" id="star23" name="rating" value="3" />
+              <label class="full" for="star23"></label>
+              <input type="checkbox" id="star24" name="rating" value="2" />
+              <label class="full" for="star24"></label>
+              <input type="checkbox" id="star25" name="rating" value="1" />
+              <label class="full" for="star25"></label>
+            </fieldset>
+            <span class="book-voters">1970 voters</span>
+          </div>
+          <div class="book-sum" title="{{book.sinopse}}">{{ book.sinopse }}</div>
+          <div class="book-see book-purple" style="cursor: pointer" (click)="openBook(book)">Ler o Livro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="main-wrapper">
+<!--    <div class="popular-books">-->
+
+<!--    </div>-->
+  </div>
+  <div class="main-menu">
+    <div class="genre">Popular por Gênero</div>
+    <div class="book-types">
+      <a *ngFor="let genre of genres"
+         href="#"
+         class="book-type"
+         [class.active]="genre === selectedGenre"
+         (click)="onGenreSelect(genre, $event)">
+        {{ genre }}
+      </a>
+    </div>
+  </div>
+  <div class="book-cards">
+    <div class="book-card" *ngFor="let book of filteredBooks">
+      <div class="content-wrapper" (click)="openBook(book)">
+        <img [src]="mainUrl + '/_books/' + book.title + '/' + book.title + '_cover.png'"
+             alt="{{ book.title }} Cover" class="book-card-img" width="160px" height="237.19px">
+
+        <div class="card-content">
+          <div class="book-name">{{ formatTitle(book.title) }}
+            <!-- Badge "Novo" se o livro foi adicionado nos últimos 7 dias -->
+            <span class="badge-new" *ngIf="isNewBook(book)">Novo</span>
+
+            <!-- Badge "Atualizado" se recebeu uma nova página nos últimos 3 dias -->
+            <span class="badge-updated" *ngIf="hasNewPages(book)">Atualizado</span>
+          </div>
+          <div class="book-by">by Infinity Stories</div>
+          <div class="rate">
+            <fieldset class="rating book-rate">
+              <input type="checkbox" id="star-c1" name="rating" value="5">
+              <label class="full" for="star-c1"></label>
+              <input type="checkbox" id="star-c2" name="rating" value="4">
+              <label class="full" for="star-c2"></label>
+              <input type="checkbox" id="star-c3" name="rating" value="3">
+              <label class="full" for="star-c3"></label>
+              <input type="checkbox" id="star-c4" name="rating" value="2">
+              <label class="full" for="star-c4"></label>
+              <input type="checkbox" id="star-c5" name="rating" value="1">
+              <label class="full" for="star-c5"></label>
+            </fieldset>
+            <span class="book-voters card-vote">1.987 voters</span>
+          </div>
+          <div class="book-sum card-sum" title="{{book.sinopse}}">{{book.sinopse}}</div>
+        </div>
+      </div>
+      <div class="likes">
+        <div class="like-profile">
+          <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="" class="like-img">
+        </div>
+        <div class="like-profile">
+          <img src="https://pbs.twimg.com/profile_images/2452384114/noplz47r59v1uxvyg8ku.png" alt="" class="like-img">
+        </div>
+        <div class="like-profile">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80" alt="" class="like-img">
+        </div>
+        <div class="like-name"><span>Samantha William</span> e<span> 2 outros amigos</span> gostaram dessa estória</div>
+      </div>
+    </div>
+  </div>
+<!--  <app-animated-stacked-pages *ngIf="selectedBook" [book]="selectedBook" (close)="closeBook()"></app-animated-stacked-pages>-->
+
+  <!-- Modal Background -->
+  <div class="modal" *ngIf="selectedBook" (click)="closeBook()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+    <app-animated-stacked-pages [book]="selectedBook" (close)="closeBook()"></app-animated-stacked-pages>
+    </div>
+  </div>
+
+
+
+  <app-footer-component></app-footer-component>
+
+<!--  <app-poema></app-poema>-->
+</div>
+

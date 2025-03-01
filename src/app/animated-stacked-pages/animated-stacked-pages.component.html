@@ -1,0 +1,42 @@
+<div class="instruction-message" *ngIf="showInstructions">
+  Use as setas do teclado ou os botões da página para navegar.
+</div>
+
+<div class="modal" (click)="stopPropagation($event)">
+  <div class="modal-content">
+    <!-- Título e botão Sinopse -->
+    <article>
+      <div class="modal-header">
+        <h2>{{ formatTitle(book.title) || "Poemas" }}</h2>
+        <button class="sinopse-button" (click)="toggleSynopsis()">
+          {{ showSynopsis ? "Voltar à Leitura" : "Sinopse" }}
+        </button>
+      </div>
+
+      <p><strong>Gênero:</strong> {{ book.genre || "Poesia" }}</p>
+
+      <!-- Exibe a sinopse se showSynopsis for verdadeiro -->
+      <ng-container *ngIf="showSynopsis; else readingMode">
+        <div class="sinopse-content" [innerHTML]="formatText(book.sinopse)"></div>
+      </ng-container>
+
+      <!-- Exibe as páginas se showSynopsis for falso -->
+      <ng-template #readingMode>
+        <ng-container *ngIf="pages.length > 0">
+          <h3>Página {{ pages[activeIndex].key }}</h3>
+          <div [innerHTML]="formatText(pages[activeIndex].value)"></div>
+        </ng-container>
+      </ng-template>
+    </article>
+
+    <div><br></div>
+
+    <!-- Botões de navegação -->
+    <button (click)="previousPage()" [disabled]="activeIndex === 0 || showSynopsis">Anterior</button>
+    <button (click)="nextPage()" title="A próxima página ainda está sendo escrita..."
+            [disabled]="activeIndex === pages.length - 1 || showSynopsis">
+      Próximo
+    </button>
+    <button (click)="closeModal()">Fechar</button>
+  </div>
+</div>

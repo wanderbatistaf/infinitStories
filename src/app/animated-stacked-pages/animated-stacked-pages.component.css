@@ -1,0 +1,111 @@
+/* Container principal que envolve as seções/páginas */
+section {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden; /* Isso ajuda a manter a estética das animações */
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Efeito de sombra */
+  border-radius: 10px; /* Borda arredondada */
+  font-family: 'Times New Roman', serif; /* Fonte típica de livro */
+  line-height: 1.6;
+  opacity: 0;
+}
+
+/* Quando a página estiver ativa */
+section.active {
+  opacity: 1;
+  transform: scale(1.05); /* Aumenta um pouco para dar sensação de destaque */
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+/* Efeito de saída ao trocar a página */
+section.leave {
+  transform: translateX(100%) rotateY(15deg) scale(0.9); /* Efeito de saída com rotação */
+  opacity: 0;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+/* Estilos adicionais para a tipografia */
+h1, h2, h3 {
+  font-family: 'Georgia', serif;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #555;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+/* Ajuste da animação para simular a virada de página */
+section {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+section.active {
+  transform: rotateY(0deg);
+}
+
+section.leave {
+  transform: rotateY(-90deg); /* Virada de página para a esquerda */
+}
+
+/* Estilo para botões de navegação */
+button {
+  background-color: #f0e6d2;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  font-family: 'Georgia', serif;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center; /* Alinha verticalmente */
+  justify-content: flex-start; /* Mantém o botão à esquerda */
+  gap: 10px; /* Adiciona um espaçamento entre o botão e o título */
+}
+
+
+/* Estilo para a mensagem de instrução */
+.instruction-message {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #e3dac9;
+  border-radius: 8px;
+  font-family: 'Georgia', serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  font-size: 1.1em;
+  z-index: 1100;
+  animation: fadeOut 5s forwards; /* Faz a mensagem desaparecer após 5s */
+}
+
+/* Animação para desaparecer gradualmente */
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; display: none; }
+}

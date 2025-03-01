@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <img src="path-to-your-logo.png" alt="Logo" class="login-logo">
+      <h2>Bem vindo de volta</h2>
+    </div>
+    <form (ngSubmit)="login()">
+      <div class="input-group">
+        <label for="username">Username *</label>
+        <input type="text" id="username" placeholder="Enter your Username" [(ngModel)]="username" name="username" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password *</label>
+        <input type="password" id="password" placeholder="Enter your Password" [(ngModel)]="password" name="password" required>
+      </div>
+      <button type="submit" class="login-btn">Conecte-se</button>
+    </form>
+    <div class="footer">
+      <a href="#">Esqueceu a senha?</a>
+    </div>
+  </div>
+</div>

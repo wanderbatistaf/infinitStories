@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://localhost/salvar_poema.php",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

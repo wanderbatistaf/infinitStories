@@ -1,0 +1,61 @@
+<div class="dashboard">
+  <h1>Painel de Gerenciamento de Livros e Poemas 📖</h1>
+
+  <!-- Seção de Controle -->
+  <div class="control-section">
+    <h2>📜 Gerar Poema</h2>
+    <button class="generate-button" (click)="gerarPoema()">Gerar Novo Poema</button>
+  </div>
+
+  <!-- Seção de Criação de Livro -->
+  <div class="control-section">
+    <h2>📖 Criar Novo Livro</h2>
+    <!-- Nome do Livro -->
+    <input #bookname class="input-field" placeholder="Nome do Livro">
+    <!-- Gênero do Livro -->
+    <input #genero class="input-field" placeholder="Gênero do Livro">
+    <!-- Protagonista -->
+    <input #protagonist class="input-field" placeholder="Protagonista">
+    <!-- Personagens -->
+    <input #characters class="input-field" placeholder="Personagens (separados por vírgula)">
+    <!-- Localização -->
+    <input #location class="input-field" placeholder="Localização">
+    <!-- Ano -->
+    <input #year class="input-field" placeholder="Ano de Publicação">
+    <!-- Tom -->
+    <input #tone class="input-field" placeholder="Tom da História (ex: Inspirador, Sombrio)">
+    <!-- Informações Adicionais -->
+    <input #additionalInfo class="input-field" placeholder="Informações Adicionais">
+    <!-- Botão para Criar Livro -->
+    <button class="generate-button" (click)="gerarLivro(bookname.value, genero.value, protagonist.value, characters.value, location.value, year.value, tone.value, additionalInfo.value)">Criar Livro</button>
+  </div>
+
+
+  <!-- Seção para Gerar Próxima Página -->
+  <div class="control-section">
+    <h2>📄 Gerar Próxima Página</h2>
+    <select #selectedBook class="input-field">
+      <option *ngFor="let book of books" [value]="book.title">{{ book.title }}</option>
+    </select>
+    <button class="next-page-button"
+            (click)="generateNextPage(
+      selectedBook.value,
+      genero.value,
+      additionalInfo.value,
+      protagonist.value,
+      characters?.value ? characters.value.split(',').map(s => s.trim()) : [],  <!-- Corrigido aqui -->
+      location.value,
+      year.value,
+      tone.value
+    )">
+      Gerar Página
+    </button>
+  </div>
+
+
+  <!-- Exibição do Poema Gerado -->
+  <div *ngIf="poemaGerado" class="output">
+    <h2>📜 Poema Gerado</h2>
+    <p>{{ poemaGerado }}</p>
+  </div>
+</div>
